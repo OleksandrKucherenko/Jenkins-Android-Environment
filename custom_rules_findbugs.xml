@@ -68,7 +68,8 @@
               excludeFilter="${findbugs.home}/android_excludes.xml">
       <auxClasspath>
         <path refid="jar.libs.ref" />
-        <path refid="android.target.classpath" />
+        <!-- prev sdk tools use: android.target.classpath -->
+        <path refid="project.target.class.path" />
       </auxClasspath>
       <sourcePath path="${source.absolute.dir}" />
       <class location="${out.classes.absolute.dir}" />
