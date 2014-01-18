@@ -27,7 +27,8 @@
   <!-- Custom TASKS -->
   <taskdef name="xpath" classname="com.android.ant.XPathTask" classpathref="android.antlibs" />
   <taskdef name="propertyregex" classname="net.sf.antcontrib.property.RegexTask" classpathref="apache.antlibs"/>
-
+  <taskdef name="var" classname="net.sf.antcontrib.property.Variable" classpathref="apache.antlibs" />
+  
   <!-- Initial values extraction from manifest file -->
   <xpath input="AndroidManifest.xml" expression="/manifest/@package" output="manifest.project.name" />
   <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName" output="manifest.versionName" />
