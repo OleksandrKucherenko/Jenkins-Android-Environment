@@ -14,6 +14,14 @@
   <!-- FindBugs Tool properties -->
   <property name="findbugs.home" value="${tools.dir}/findbugs-2.0.3" />
   
+  <path id="tools.findbugs.antlibs">
+    <pathelement path="${findbugs.home}/lib/findbugs-ant.jar" />
+  </path>
+  
+  <taskdef name="findbugs"
+           classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+           classpathref="tools.findbugs.antlibs" />
+ 
   <!-- 
   ================================= 
     target: findbugs              

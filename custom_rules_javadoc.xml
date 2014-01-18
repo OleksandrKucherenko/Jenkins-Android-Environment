@@ -11,7 +11,7 @@
   <fail message="sdk.dir is missing." unless="sdk.dir" />
   <fail message="tools.dir is missing." unless="tools.dir" />
    
-  <target name="-javadoc">
+  <target name="javadoc">
     <path id="jar.libs.ref">
       <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
     </path>
