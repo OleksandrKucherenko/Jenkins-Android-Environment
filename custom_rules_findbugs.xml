@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.truecaller" default="help">
+  <echo>Custom Rules: Findbugs Tool</echo>
+</project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.truecaller" default="help">
+
+  <!-- INCLUDE CUSTOME TARGETS -->
+  <import file="custom_rules_annotations.xml" optional="true" />
+  <import file="custom_rules_findbugs.xml" optional="true" />
+  <import file="custom_rules_checkstyle.xml" optional="true" />
+  <import file="custom_rules_javadoc.xml" optional="true" />
+
+  <!--
+    -PRE-CLEAN : delete auto generated folders of the Annotations compiler
+  -->
+  <target name="-pre-clean">
+  </target>
+
+  <!-- 
+    ASK ANNOTAIONS TARGET TO DO THE JOB FOR US. 
+  -->
+  <target name="-pre-compile">
+    <antcall target="-annotations"/>
+  </target>
+
+  <!--
+  ================================= 
+    target: -post-package              
+  =================================
+  -->
+
+  <target name="-post-package" depends="-set-project-name">
+    <echo>POST-Package step</echo>
+    <echo>-----------------</echo>
+    <echo>Certificates Dir : ${certificates.dir}</echo>
+    <echo>ArtfulBits  Keys : ${artfulbits.keystore.path}</echo>
+    <echo>File Name        : ${ant.project.name}</echo>
+    <echo>Output file      : ${out.final.file}</echo>
+    <echo>Build Target     : ${build.target}</echo>
+    <echo>Path separator   : ${file.separator}</echo>
+    
+    <var name="out.final.file" value="${out.absolute.dir}${file.separator}${ant.project.name}-${build.target}.apk" />
+    <echo>New Output file  : ${out.final.file}</echo>
+    
+  </target>
+
+</project>
