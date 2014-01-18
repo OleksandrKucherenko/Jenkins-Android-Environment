@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="com.truecaller" default="help">
+<project name="{project-name}" default="help">
   <echo>Custom Rules: Javadoc Tool</echo>
+   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  javadoc:</echo>
+  <echo>    Execute JavaDoc tool on project.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />
+   
+  <target name="-javadoc">
+    <path id="jar.libs.ref">
+      <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
+    </path>
+    
+    <javadoc defaultexcludes="yes"
+             destdir="javadocs"
+             author="true"
+             version="true"
+             use="true"
+             windowtitle="${manifest.project.name} Javadoc"
+             classpathref="jar.libs.ref"
+             bootclasspathref="project.target.class.path">
+      <sourcepath location="${source.absolute.dir}" />
+      <classpath path="${out.classes.absolute.dir}" />
+
+      <doctitle>
+        <![CDATA[<h1>${manifest.project.name}</h1>]]></doctitle>
+      <bottom>
+        <![CDATA[<i>Copyright &#169; 2014 {project-name}. All Rights Reserved.</i>]]></bottom>
+      <tag name="todo" scope="all" description="To do:" />
+      <link offline="true"
+            href="http://java.sun.com/javase/6/docs/api/"
+            packagelistLoc="/tmp" />
+      <link href="http://docs.oracle.com/javase/1.5.0/docs/api/" />
+      <link offline="true"
+            href="http://developer.android.com/reference/"
+            packagelistloc="${sdk.dir}/docs/reference" />
+    </javadoc>  
+  </target>
 </project>

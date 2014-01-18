@@ -1,36 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="com.truecaller" default="help">
-
-  <!-- INCLUDE CUSTOME TARGETS -->
+<project name="{project-name}" default="help">
+  <!-- 
+  ================================= 
+    Short overview of build steps 
+  ================================= 
+  -->
+  
+  <echo>Custom Rules: Build customization</echo>
+  <echo>Allowed redefine of targets:</echo>
+  <echo>-PRE-                         -POST-</echo>
+  <echo>-pre-clean</echo>
+  <echo>-pre-build</echo>
+  <echo>-pre-compile</echo>
+  <echo>                              -post-package</echo>
+  <echo>                              -post-build</echo>
+  
+  <!-- 
+  ================================= 
+    INCLUDE CUSTOME TARGETS 
+  ================================= 
+  -->
+  
   <import file="custom_rules_annotations.xml" optional="true" />
   <import file="custom_rules_findbugs.xml" optional="true" />
   <import file="custom_rules_checkstyle.xml" optional="true" />
   <import file="custom_rules_javadoc.xml" optional="true" />
-
-  <!--
-    -PRE-CLEAN : delete auto generated folders of the Annotations compiler
-  -->
-  <target name="-pre-clean">
-  </target>
-
-  <!-- 
-    ASK ANNOTAIONS TARGET TO DO THE JOB FOR US. 
-  -->
-  <target name="-pre-compile">
-    <antcall target="-annotations"/>
-  </target>
+  <import file="custom_rules_manifest.xml" optional="true" />
 
   <!--
   ================================= 
-    target: -post-package              
+    target: -pre-clean
+  ================================= 
+  -->
+  
+  <target name="-pre-clean">
+  </target>
+  
+  <!--
+  ================================= 
+    target: -pre-build
+  ================================= 
+  -->
+  
+  <target name="-pre-build">
+  </target>
+
+  <!-- 
+  ================================= 
+    target: -post-package / ASK ANNOTAIONS TARGET TO DO THE JOB FOR US.          
+  =================================
+  -->
+  
+  <target name="-pre-compile">
+    <!-- request android annotations build step --> 
+    <antcall target="annotations"/>
+  </target>
+  
+  <!--
+  ================================= 
+    target: -post-compile
+  =================================
+  -->
+  <target name="-post-compile">
+    <antcall target="javadoc"/>
+  </target>
+  
+  <!--
+  ================================= 
+    target: -post-package / Define custom sign certificate
   =================================
   -->
 
-  <target name="-post-package" depends="-set-project-name">
+  <target name="-post-package">
+    <antcall target="set-project-name"/>
+  
     <echo>POST-Package step</echo>
     <echo>-----------------</echo>
     <echo>Certificates Dir : ${certificates.dir}</echo>
-    <echo>ArtfulBits  Keys : ${artfulbits.keystore.path}</echo>
+    <echo>Company  Keys    : ${company.keystore.path}</echo>
     <echo>File Name        : ${ant.project.name}</echo>
     <echo>Output file      : ${out.final.file}</echo>
     <echo>Build Target     : ${build.target}</echo>
@@ -39,6 +86,15 @@
     <var name="out.final.file" value="${out.absolute.dir}${file.separator}${ant.project.name}-${build.target}.apk" />
     <echo>New Output file  : ${out.final.file}</echo>
     
+  </target>
+  
+  <!--
+  ================================= 
+    target: -post-build
+  ================================= 
+  -->
+  
+  <target name="-post-build">
   </target>
 
 </project>

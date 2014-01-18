@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="com.truecaller" default="help">
-
+<project name="{project-name}" default="help">
   <echo>Custom Rules: Android Annotations</echo>  
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  annotations:</echo>
+  <echo>    Execute Android Annotations Build logic for project.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />
 
   <!-- annotation variables -->
   <property name="annotations.jar" value="androidannotations-3.0.jar" />
@@ -15,7 +23,7 @@
     https://github.com/excilys/androidannotations/wiki/Automating-the-Build-in-Jenkins-with-Ant
   -->
   
-  <target name="-annotations">
+  <target name="annotations">
       
     <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
     <echo>      AndroidAnnotations is generating code       </echo>

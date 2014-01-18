@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="{project-name}" default="help">
+  <echo>Custom Rules: Manifest Tools</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  -validate-manifest-version:</echo>
+  <echo>    Validates that in AndroidManifest.xml file. Validates versionCode and versionName</echo>
+  <echo>    attributes format. Expected format: {major}.{minor}[[.build][.revision]]</echo>
+  <echo>  -set-manifest-version:</echo>
+  <echo>    Modify android project manifest file, set versionName and versionCode attributes.</echo>
+  <echo>    Expected that already defined properties: {manifest.versionName}, {build.number}.</echo>
+  <echo>  set-project-name:</echo>
+  <echo>    Set android project version in manifest file. Expected that already defined set of</echo>
+  <echo>    properties: {vcs.revision}, {manifest.project.name}, {manifest.versionName},</echo>
+  <echo>    {build.number}. Version tag will become a part of output package name.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  
+  <!-- SEARCH PATHs -->
+  <path id="android.antlibs">
+    <pathelement path="${sdk.dir}/tools/lib/ant-tasks.jar" />
+  </path>
+
+  <path id="apache.antlibs">
+    <pathelement path="${tools.dir}/ant-contrib/ant-contrib-1.0b3.jar" />
+  </path>
+
+  <!-- Custom TASKS -->
+  <taskdef name="xpath" classname="com.android.ant.XPathTask" classpathref="android.antlibs" />
+  <taskdef name="propertyregex" classname="net.sf.antcontrib.property.RegexTask" classpathref="apache.antlibs"/>
+
+  <!-- Initial values extraction from manifest file -->
+  <xpath input="AndroidManifest.xml" expression="/manifest/@package" output="manifest.project.name" />
+  <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName" output="manifest.versionName" />
+
+  <!-- 
+  ================================= 
+    target: -validate-manifest-version              
+  =================================
+  -->
+
+  <target name="-validate-manifest-version">
+    <!-- validate format of the manifest versionName attribute -->
+    <propertyregex property="manifest.version.valid"
+                   input="${manifest.versionName}"
+                   regexp="([0-9]+\.[0-9]+).*"
+                   select="\1"
+                   override="true"
+                   casesensitive="false" />
+    <fail
+      message="Manifest VersionName attribute should be in format: {major}.{minor}[.{build}[.{revision}]]"
+      unless="manifest.version.valid" />
+  </target>
+  
+  <!-- 
+  ================================= 
+    target: -set-manifest-version              
+  =================================
+  -->
+
+  <target name="-set-manifest-version" depends="-validate-manifest-version">
+    <echo>----------------------------------------</echo>
+    <echo>                BEFORE</echo>
+    <echo>----------------------------------------</echo>
+    <echo>Version Name: ${version.name}</echo>
+    <echo>Version Code: ${version.code}</echo>
+    
+    <propertyregex property="manifest.versionName"
+                   input="${manifest.versionName}"
+                   regexp="([0-9]+\.[0-9]+).*"
+                   select="\1"
+                   override="true"
+                   casesensitive="false" />
+
+    <var name="version.name" value="${manifest.versionName}" />
+    <var name="version.code" value="${build.number}" />
+
+    <replaceregexp file="AndroidManifest.xml" 
+                   match='android:versionCode=\"(.*)\"' 
+                   replace='android:versionCode="${version.code}"' />
+    
+    <replaceregexp file="AndroidManifest.xml" 
+                   match='android:versionName=\"(.*)\"' 
+                   replace='android:versionName="${version.name}"' />  
+
+    <echo>----------------------------------------</echo>
+    <echo>                AFTER</echo>
+    <echo>----------------------------------------</echo>
+    <echo>Version Name: ${version.name}</echo>
+    <echo>Version Code: ${version.code}</echo>
+  </target>
+
+  <!-- 
+  ================================= 
+    target: -set-project-name
+  =================================
+  -->
+
+  <target name="set-project-name" depends="-set-manifest-version">
+    <var name="ant.project.name"
+         value="${manifest.project.name}.${manifest.versionName}.${build.number}.${vcs.revision}" />
+    <var name="resource.package.file.name" value="${ant.project.name}.ap_" />
+
+    <echo>Project Name: ${ant.project.name}</echo>
+  </target>
+
+  
+</project>  

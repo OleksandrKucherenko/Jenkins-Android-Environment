@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="com.truecaller" default="help">
+<project name="{project-name}" default="help">
   <echo>Custom Rules: Findbugs Tool</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  findbugs:</echo>
+  <echo>    Execute findbugs tool on project.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />
+
+  <!-- FindBugs Tool properties -->
+  <property name="findbugs.home" value="${tools.dir}/findbugs-2.0.3" />
+  
+  <!-- 
+  ================================= 
+    target: findbugs              
+  =================================
+  -->
+  
+  <target name="findbugs" description="Execute FindBugs tools for project code.">
+    <path id="jar.libs.ref">
+      <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
+    </path>
+                    
+    <mkdir dir="findbugs" />
+    
+    <findbugs home="${findbugs.home}"
+              output="xml"
+              outputFile="findbugs/findbugs.xml"
+              excludeFilter="${findbugs.home}/android_excludes.xml">
+      <auxClasspath>
+        <path refid="jar.libs.ref" />
+        <path refid="android.target.classpath" />
+      </auxClasspath>
+      <sourcePath path="${source.absolute.dir}" />
+      <class location="${out.classes.absolute.dir}" />
+    </findbugs>
+  </target>
+
 </project>
