@@ -39,11 +39,15 @@
   =================================
   -->
   
-  <target name="pmd" depends="-resolve-variables">         
+  <target name="pmd" depends="-resolve-variables">
+    <echoproperties/>
+    
+    <mkdir dir="${reports.absolute.dir}/pmd" />
+    
     <pmd shortFilenames="true">             
-      <ruleset>basic</ruleset>             
-      <ruleset>android</ruleset>             
-      <formatter type="xml" toFile="${reports.absolute.dir}/pmd.xml" />             
+      <ruleset>rulesets/java/basic.xml</ruleset>             
+      <ruleset>rulesets/java/android.xml</ruleset>             
+      <formatter type="xml" toFile="${reports.absolute.dir}/pmd/pmd.xml" />             
       <auxclasspath>                 
         <pathelement location="${android-jar-file}" />                 
         <fileset dir="${jar.libs.dir}">                     
@@ -53,7 +57,7 @@
       <fileset dir="${source.dir}" includes="**/*.java" />         
     </pmd>         
     <cpd minimumTokenCount="100"             
-         outputFile="${reports.absolute.dir}/cpd.xml"             
+         outputFile="${reports.absolute.dir}/pmd/cpd.xml"             
          format="xml">             
       <fileset dir="${source.dir}">                 
         <include name="**/*.java" />             

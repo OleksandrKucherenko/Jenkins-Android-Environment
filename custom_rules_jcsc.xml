@@ -23,7 +23,7 @@
   <property name="jcsc.home" value="${tools.dir}/jcsc-0.98.1"/>
   
   <!-- Recursive paths -->     
-  <path id="tools.classpath">         
+  <path id="tools.jcsc.classpath">         
     <fileset dir="${jcsc.home}">             
       <include name="lib/*.jar" />         
     </fileset>     
@@ -38,9 +38,12 @@
   =================================
   -->
   
-  <target name="jcsc" depends="-resolve-variables">         
+  <target name="jcsc" depends="-resolve-variables">
+    
+    <mkdir dir="${reports.absolute.dir}/jcsc" />
+    
     <jcsc             
-      rules="${jcsc.home}/jcsc.android.xml"             
+      rules="${jcsc.home}/rules/jcsc.jcsc.xml"             
       destdir="${reports.absolute.dir}/jcsc"             
       copyassociatedfiles="true"             
       jcschome="${jcsc.home}">             

@@ -37,12 +37,15 @@
   =================================
   -->
   
-  <target name="javancss" depends="-resolve-variables">         
+  <target name="javancss" depends="-resolve-variables">
+    
+    <mkdir dir="${reports.absolute.dir}/javancss" />
+    
     <javancss             
       srcdir="${source.dir}"             
       includes="**/*.java"             
       generateReport="yes"             
-      outputfile="${reports.absolute.dir}/javancss.xml"             
+      outputfile="${reports.absolute.dir}/javancss/javancss.xml"             
       format="xml"             
       packageMetrics="yes"             
       classMetrics="yes"             

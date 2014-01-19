@@ -28,7 +28,9 @@
   </path>
 
   <path id="apache.antlibs">
-    <pathelement path="${antcontrib.home}/*.jar" />
+    <fileset dir="${antcontrib.home}">             
+      <include name="*.jar" />         
+    </fileset>      
   </path>
 
   <!-- Custom TASKS -->
@@ -57,6 +59,7 @@
     <fail
       message="Manifest VersionName attribute should be in format: {major}.{minor}[.{build}[.{revision}]]"
       unless="manifest.version.valid" />
+    <echo>AndroidManifest.xml version attributes validation PASSED!</echo>
   </target>
   
   <!-- 
@@ -105,7 +108,7 @@
 
   <target name="set-project-name" depends="-set-manifest-version">
     <var name="ant.project.name"
-         value="${manifest.project.name}.${manifest.versionName}.${build.number}.${vcs.revision}" />
+         value="${manifest.project.name}-${manifest.versionName}.${build.number}.${vcs.revision}" />
     <var name="resource.package.file.name" value="${ant.project.name}.ap_" />
 
     <echo>Project Name: ${ant.project.name}</echo>
