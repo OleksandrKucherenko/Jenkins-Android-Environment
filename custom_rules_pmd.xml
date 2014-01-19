@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="{project-name}" default="help">
+  <echo>Custom Rules: Code Analysis Tools</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  pmd:</echo>
+  <echo>    Execute PMD source code analyzer on Project files.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- Tool Properties -->
+  <property name="reports.dir" value="../../reports" />
+  <property name="pmd.home" value="${tools.home}/pmd-bin-5.0.5" /> 
+  <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
+
+  <!-- Recursive paths -->     
+  <path id="tools.pmd.classpath">         
+    <fileset dir="${pmd.home}">             
+      <include name="lib/*.jar" />         
+    </fileset>     
+  </path> 
+
+  <!-- Define Tasks -->
+  <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask"         
+    classpathref="tools.pmd.classpath" />     
+  
+  <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask"         
+    classpathref="tools.pmd.classpath" /> 
+
+  <!--
+    References:
+      http://blog.jazzy.pro/en/jenkins-ci-and-android/
+  -->
+
+  <target name="pmd">         
+    <pmd shortFilenames="true">             
+      <ruleset>basic</ruleset>             
+      <ruleset>android</ruleset>             
+      <formatter type="xml" toFile="${reports.dir}/pmd.xml" />             
+      <auxclasspath>                 
+        <pathelement location="${android-jar-file}" />                 
+        <fileset dir="${jar.libs.dir}">                     
+          <include name="*.jar" />                 
+        </fileset>             
+      </auxclasspath>             
+      <fileset dir="${source.dir}" includes="**/*.java" />         
+    </pmd>         
+    <cpd minimumTokenCount="100"             
+         outputFile="${reports.dir}/cpd.xml"             
+         format="xml">             
+      <fileset dir="${source.dir}">                 
+        <include name="**/*.java" />             
+      </fileset>         
+    </cpd>     
+  </target>
+
+</project> 

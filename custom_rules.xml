@@ -25,6 +25,7 @@
   <import file="custom_rules_findbugs.xml" optional="true" />
   <import file="custom_rules_checkstyle.xml" optional="true" />
   <import file="custom_rules_javadoc.xml" optional="true" />
+  <import file="custom_rules_pmd.xml" optional="true" />
   <import file="custom_rules_manifest.xml" optional="true" />
 
   <!--
@@ -62,9 +63,10 @@
   =================================
   -->
   <target name="-post-compile">
-    <antcall target="javadoc"/>
+    <antcall target="pmd"/>
     <antcall target="findbugs"/>
     <antcall target="checkstyle"/>
+    <antcall target="javadoc"/>
   </target>
   
   <!--
