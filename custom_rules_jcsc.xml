@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="{project-name}" default="help">
+  <echo>Custom Rules: Code Analysis Tools</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  <echo>Available Targets:</echo>
+  <echo>  jcsc:</echo>
+  <echo>    Execute jcsc source code analyzer on Project files.</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />  
+  
+  <!--
+    Reference: 
+      http://blog.jazzy.pro/en/jenkins-ci-and-android/
+  -->
+  
+  <!-- Tool Properties -->
+  <property name="reports.dir" value="../../reports" />
+  <property name="reports.absolute.dir" location="${reports.dir}" />
+  
+  <property name="jcsc.home" value="${tools.dir}/jcsc-0.98.1"/>
+  
+  <!-- Recursive paths -->     
+  <path id="tools.classpath">         
+    <fileset dir="${jcsc.home}">             
+      <include name="lib/*.jar" />         
+    </fileset>     
+  </path>
+      
+  <taskdef name="jcsc" classname="rj.tools.jcsc.ant.JCSCTask"         
+    classpathref="tools.jcsc.classpath" />
+  
+  <!-- 
+  ================================= 
+    target: jcsc              
+  =================================
+  -->
+  
+  <target name="jcsc" depends="-resolve-variables">         
+    <jcsc             
+      rules="${jcsc.home}/jcsc.android.xml"             
+      destdir="${reports.absolute.dir}/jcsc"             
+      copyassociatedfiles="true"             
+      jcschome="${jcsc.home}">             
+      <fileset dir="${source.dir}">                 
+        <include name="**/*.java" />             
+      </fileset>         
+    </jcsc>     
+  </target>
+  
+</project>  

@@ -14,6 +14,13 @@
   <echo>    properties: {vcs.revision}, {manifest.project.name}, {manifest.versionName},</echo>
   <echo>    {build.number}. Version tag will become a part of output package name.</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />  
+  
+  <!-- Tool properties -->
+  <property name="antcontrib.home" value="${tools.dir}/ant-contrib-1.0b3"/>
   
   <!-- SEARCH PATHs -->
   <path id="android.antlibs">
@@ -21,7 +28,7 @@
   </path>
 
   <path id="apache.antlibs">
-    <pathelement path="${tools.dir}/ant-contrib/ant-contrib-1.0b3.jar" />
+    <pathelement path="${antcontrib.home}/*.jar" />
   </path>
 
   <!-- Custom TASKS -->

@@ -10,41 +10,25 @@
   <!-- quick check on sdk.dir & tools.dir -->
   <fail message="sdk.dir is missing." unless="sdk.dir" />
   <fail message="tools.dir is missing." unless="tools.dir" />
-   
-  <target name="javadoc">
-    <echo>Resolving Build Target for ${ant.project.name}...</echo>
-    <!-- load project properties, resolve Android target, library dependencies
-	  and set some properties with the results.
-	  All property names are passed as parameters ending in -Out -->
-    <gettarget
-	    androidJarFileOut="project.target.android.jar"
-	    androidAidlFileOut="project.target.framework.aidl"
-	    bootClassPathOut="project.target.class.path"
-	    targetApiOut="project.target.apilevel"
-	    minSdkVersionOut="project.minSdkVersion" />
-    
-    <echo>Resolving Dependencies for ${ant.project.name}...</echo>
-    <dependency
-	    libraryFolderPathOut="project.library.folder.path"
-	    libraryPackagesOut="project.library.packages"
-	    libraryManifestFilePathOut="project.library.manifest.file.path"
-	    libraryResFolderPathOut="project.library.res.folder.path"
-	    libraryBinAidlFolderPathOut="project.library.bin.aidl.folder.path"
-	    libraryRFilePathOut="project.library.bin.r.file.path"
-	    libraryNativeFolderPathOut="project.library.native.folder.path"
-	    jarLibraryPathOut="project.all.jars.path"
-	    targetApi="${project.target.apilevel}"
-	    renderscriptSupportMode="${renderscript.support.mode}"
-	    buildToolsFolder="${android.build.tools.dir}"
-	    renderscriptSupportLibsOut="project.rs.support.libs.path"
-	    verbose="${verbose}" /> 
+  
+  <!-- Custom properties -->
+  <property name="reports.dir" value="../../reports" />
+  <property name="reports.absolute.dir" location="${reports.dir}" />
+ 
+ <!-- 
+  ================================= 
+    target: javadoc              
+  =================================
+  -->
+  
+  <target name="javadoc" depends="-resolve-variables">
     
     <path id="jar.libs.ref">
       <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
     </path>
     
     <javadoc defaultexcludes="yes"
-             destdir="javadocs"
+             destdir="${reports.absolute.dir}/javadocs"
              author="true"
              version="true"
              use="true"

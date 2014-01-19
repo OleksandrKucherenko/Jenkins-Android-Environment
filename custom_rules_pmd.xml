@@ -7,9 +7,16 @@
   <echo>    Execute PMD source code analyzer on Project files.</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
 
+  <!--
+    References:
+      http://blog.jazzy.pro/en/jenkins-ci-and-android/
+  -->
+
   <!-- Tool Properties -->
   <property name="reports.dir" value="../../reports" />
-  <property name="pmd.home" value="${tools.home}/pmd-bin-5.0.5" /> 
+  <property name="reports.absolute.dir" location="${reports.dir}" />
+  
+  <property name="pmd.home" value="${tools.dir}/pmd-bin-5.0.5" /> 
   <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
 
   <!-- Recursive paths -->     
@@ -26,16 +33,17 @@
   <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask"         
     classpathref="tools.pmd.classpath" /> 
 
-  <!--
-    References:
-      http://blog.jazzy.pro/en/jenkins-ci-and-android/
+  <!-- 
+  ================================= 
+    target: pmd              
+  =================================
   -->
-
-  <target name="pmd">         
+  
+  <target name="pmd" depends="-resolve-variables">         
     <pmd shortFilenames="true">             
       <ruleset>basic</ruleset>             
       <ruleset>android</ruleset>             
-      <formatter type="xml" toFile="${reports.dir}/pmd.xml" />             
+      <formatter type="xml" toFile="${reports.absolute.dir}/pmd.xml" />             
       <auxclasspath>                 
         <pathelement location="${android-jar-file}" />                 
         <fileset dir="${jar.libs.dir}">                     
@@ -45,7 +53,7 @@
       <fileset dir="${source.dir}" includes="**/*.java" />         
     </pmd>         
     <cpd minimumTokenCount="100"             
-         outputFile="${reports.dir}/cpd.xml"             
+         outputFile="${reports.absolute.dir}/cpd.xml"             
          format="xml">             
       <fileset dir="${source.dir}">                 
         <include name="**/*.java" />             
