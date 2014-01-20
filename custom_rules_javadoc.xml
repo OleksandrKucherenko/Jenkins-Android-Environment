@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="{project-name}" default="help">
+<project>
   <echo>Custom Rules: Javadoc Tool</echo>
    <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   <echo>Available Targets:</echo>

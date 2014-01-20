@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="{project-name}" default="help">
+<project>
   <echo>Custom Rules: Code Analysis Tools</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   <echo>Available Targets:</echo>
@@ -40,7 +40,6 @@
   -->
   
   <target name="pmd" depends="-resolve-variables">
-    <echoproperties/>
     
     <mkdir dir="${reports.absolute.dir}/pmd" />
     

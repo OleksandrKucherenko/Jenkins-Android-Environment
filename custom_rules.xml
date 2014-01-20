@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="{project-name}" default="help">
+<project>
   <!-- 
   ================================= 
     Short overview of build steps 
   ================================= 
   -->
   
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   <echo>Custom Rules: Build customization</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   <echo>Allowed redefine of targets:</echo>
   <echo>-PRE-                         -POST-</echo>
   <echo>-pre-clean</echo>
   <echo>-pre-build</echo>
   <echo>-pre-compile</echo>
+  <echo>                              -post-compile</echo>
   <echo>                              -post-package</echo>
   <echo>                              -post-build</echo>
+  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   
   <!--
   ================================= 
@@ -100,6 +104,7 @@
   =================================
   -->
   <target name="-post-compile">
+    <!--
     <antcall target="lint"/>
     <antcall target="pmd"/>
     <antcall target="javancss"/>
@@ -107,6 +112,7 @@
     <antcall target="findbugs"/>
     <antcall target="checkstyle"/>
     <antcall target="javadoc"/>
+    -->
   </target>
   
   <!--
@@ -115,13 +121,11 @@
   =================================
   -->
 
-  <target name="-post-package">
-    <antcall target="set-project-name"/>
-  
+  <target name="-post-package" depends="set-project-name">
     <echo>POST-Package step</echo>
     <echo>-----------------</echo>
-    <echo>Certificates Dir : ${certificates.dir}</echo>
-    <echo>Company Keys     : ${company.keystore.path}</echo>
+    <echo>Keystore         : ${key.store}</echo>
+    <echo>Key Alias        : ${key.alias}</echo>
     <echo>File Name        : ${ant.project.name}</echo>
     <echo>Output file      : ${out.final.file}</echo>
     <echo>Build Target     : ${build.target}</echo>
@@ -140,6 +144,5 @@
   
   <target name="-post-build">
   </target>
-
   
 </project>
