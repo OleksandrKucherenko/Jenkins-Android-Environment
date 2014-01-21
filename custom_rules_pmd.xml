@@ -41,6 +41,7 @@
   
   <target name="pmd" depends="-resolve-variables">
     
+    <mkdir dir="${reports.absolute.dir}"/>
     <mkdir dir="${reports.absolute.dir}/pmd" />
     
     <pmd shortFilenames="true">             

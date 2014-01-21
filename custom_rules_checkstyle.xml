@@ -31,6 +31,7 @@
   -->
 
   <target name="checkstyle" depends="-resolve-variables">
+    <mkdir dir="${reports.absolute.dir}"/>
     <mkdir dir="${reports.dir}/checkstyle" />
     
     <checkstyle config="${checkstyle.home}/android_checks.xml" failOnViolation="false">
@@ -38,5 +39,5 @@
       <fileset dir="${source.absolute.dir}" includes="**/*.java" />
       <property key="config_loc" value="${checkstyle.home}" />
     </checkstyle>
-  </target>
+    </target>
 </project>

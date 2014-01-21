@@ -26,7 +26,10 @@
     <path id="jar.libs.ref">
       <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
     </path>
-    
+
+    <mkdir dir="${reports.absolute.dir}"/>
+    <mkdir dir="${reports.absolute.dir}/javadocs"/>
+
     <javadoc defaultexcludes="yes"
              destdir="${reports.absolute.dir}/javadocs"
              author="true"

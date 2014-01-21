@@ -39,6 +39,7 @@
   
   <target name="javancss" depends="-resolve-variables">
     
+    <mkdir dir="${reports.absolute.dir}"/>
     <mkdir dir="${reports.absolute.dir}/javancss" />
     
     <javancss             

@@ -40,6 +40,7 @@
   
   <target name="jcsc" depends="-resolve-variables">
     
+    <mkdir dir="${reports.absolute.dir}"/>
     <mkdir dir="${reports.absolute.dir}/jcsc" />
     
     <jcsc             

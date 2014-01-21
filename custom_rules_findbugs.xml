@@ -37,7 +37,8 @@
     <path id="jar.libs.ref">
       <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
     </path>
-                    
+    
+    <mkdir dir="${reports.absolute.dir}"/>
     <mkdir dir="${reports.absolute.dir}/findbugs" />
     
     <findbugs home="${findbugs.home}"
