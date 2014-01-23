@@ -86,7 +86,7 @@
   -->
   
   <target name="-pre-build">
-    <antcall name="crashlytics-pre-build"/>
+    <antcall target="crashlytics-pre-build"/>
   </target>
 
   <!-- 
@@ -98,7 +98,7 @@
   <target name="-pre-compile">
     <!-- request android annotations build step --> 
     <antcall target="annotations"/>
-    <!-- request crashlitics job to complete own tasks -->
+    <!-- request crashlytics job to complete own tasks -->
     <antcall target="crashlytics-code-gen"/>
   </target>
   
@@ -127,7 +127,7 @@
 
   <target name="-post-package" depends="set-project-name">
 
-    <antcall name="crashlytics-post-package"/>
+    <antcall target="crashlytics-post-package"/>
 
     <echo>POST-Package step</echo>
     <echo>-----------------</echo>
