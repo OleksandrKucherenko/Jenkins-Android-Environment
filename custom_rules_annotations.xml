@@ -12,7 +12,7 @@
   <fail message="tools.dir is missing." unless="tools.dir" />
 
   <!-- annotation variables -->
-  <property name="annotations.jar" value="androidannotations-3.0.jar" />
+  <property name="annotations.jar" value="androidannotations-3.0.1.jar" />
   <property name="annotations.jar.dir" value="compile-libs"/>
   <property name="annotations.jar.absolute.dir" location="${annotations.jar.dir}" />
   <property name="annotations.jar.absolute.path" value="${annotations.jar.absolute.dir}/${annotations.jar}" />
