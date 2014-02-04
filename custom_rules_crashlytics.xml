@@ -2,6 +2,8 @@
 <project>
   <echo>Custom Rules: Crashlitics</echo>  
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <target name="help">
   <echo>Available Targets:</echo>
   <echo>  crashlytics-pre-build:</echo>
   <echo>    Crashlytics target to be invoked prior to building any Android artifacts. </echo>
@@ -13,6 +15,7 @@
   <echo>    Crashlytics target to be invoked after the packaging task is complete. Cleans up Crashlytics-generated</echo>
   <echo>    resource files. Caches and uploads deobfuscation files to Crashlytics servers.</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  </target>
 
   <!-- quick check on sdk.dir & tools.dir -->
   <fail message="sdk.dir is missing." unless="sdk.dir" />

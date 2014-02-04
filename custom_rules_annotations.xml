@@ -2,10 +2,13 @@
 <project>
   <echo>Custom Rules: Android Annotations</echo>  
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
-  <echo>Available Targets:</echo>
-  <echo>  annotations:</echo>
-  <echo>    Execute Android Annotations Build logic for project.</echo>
-  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <target name="help">
+    <echo>Available Targets:</echo>
+    <echo>  annotations:</echo>
+    <echo>    Execute Android Annotations Build logic for project.</echo>
+    <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  </target>
 
   <!-- quick check on sdk.dir & tools.dir -->
   <fail message="sdk.dir is missing." unless="sdk.dir" />

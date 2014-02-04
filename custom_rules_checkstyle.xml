@@ -2,10 +2,13 @@
 <project>
   <echo>Custom Rules: Checkstyle Tool</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
-  <echo>Available Targets:</echo>
-  <echo>  checkstyle:</echo>
-  <echo>    Execute Checkstyle tool on project.</echo>
-  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <target name="help">  
+    <echo>Available Targets:</echo>
+    <echo>  checkstyle:</echo>
+    <echo>    Execute Checkstyle tool on project.</echo>
+    <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  </target>
 
   <!-- quick check on sdk.dir & tools.dir -->
   <fail message="sdk.dir is missing." unless="sdk.dir" />
