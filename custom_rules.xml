@@ -94,17 +94,21 @@
 
   <!-- 
   ================================= 
-    target: -post-package / ASK ANNOTAIONS TARGET TO DO THE JOB FOR US.          
+    target: -pre-compile / ASK ANNOTAIONS TARGET TO DO THE JOB FOR US.          
   =================================
   -->
   
-  <target name="-pre-compile" depends="crashlytics-code-gen">
+  <target name="-pre-compile">
     <!-- request android annotations build step --> 
     <antcall target="annotations"/>
-    <!-- request crashlytics job to complete own tasks -->
-    <!-- antcall target="crashlytics-code-gen"/ -->
   </target>
-  
+
+
+  <!--
+    Override Android's -code-gen target to first invoke the Crashlytics code-gen target.
+  -->
+  <target name="-code-gen" depends="crashlytics-code-gen, android_rules.-code-gen" />
+ 
   <!--
   ================================= 
     target: -post-compile
