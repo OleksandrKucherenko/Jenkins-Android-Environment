@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <echo>Custom Rules: Code Analysis Tools</echo>
+  <echo>Custom Rules: PMD Code Analysis Tools</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
 
   <target name="help">

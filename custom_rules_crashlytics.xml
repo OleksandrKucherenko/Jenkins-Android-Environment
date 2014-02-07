@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <echo>Custom Rules: Crashlitics</echo>  
+  <echo>Custom Rules: Crashlytics</echo>  
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
 
   <target name="help">

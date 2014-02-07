@@ -9,15 +9,18 @@
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   <echo>Custom Rules: Build customization</echo>
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
-  <echo>Allowed redefine of targets:</echo>
-  <echo>-PRE-                         -POST-</echo>
-  <echo>-pre-clean</echo>
-  <echo>-pre-build</echo>
-  <echo>-pre-compile</echo>
-  <echo>                              -post-compile</echo>
-  <echo>                              -post-package</echo>
-  <echo>                              -post-build</echo>
-  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+
+  <target name="help">
+    <echo>Allowed redefine of targets:</echo>
+    <echo>-PRE-                         -POST-</echo>
+    <echo>-pre-clean</echo>
+    <echo>-pre-build</echo>
+    <echo>-pre-compile</echo>
+    <echo>                              -post-compile</echo>
+    <echo>                              -post-package</echo>
+    <echo>                              -post-build</echo>
+    <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+  </target>
   
   <!--
   ================================= 
