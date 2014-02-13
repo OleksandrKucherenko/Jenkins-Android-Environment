@@ -16,7 +16,7 @@
   -->
 
   <!-- Tool Properties -->
-  <property name="reports.dir" value="../../reports" />
+  <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
   <property name="pmd.home" value="${tools.dir}/pmd-bin-5.0.5" /> 

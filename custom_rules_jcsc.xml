@@ -20,7 +20,7 @@
   -->
   
   <!-- Tool Properties -->
-  <property name="reports.dir" value="../../reports" />
+  <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
   <property name="jcsc.home" value="${tools.dir}/jcsc-0.98.1"/>

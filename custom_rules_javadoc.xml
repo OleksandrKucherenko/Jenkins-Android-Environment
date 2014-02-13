@@ -15,7 +15,7 @@
   <fail message="tools.dir is missing." unless="tools.dir" />
   
   <!-- Custom properties -->
-  <property name="reports.dir" value="../../reports" />
+  <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
  
  <!-- 
