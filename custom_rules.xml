@@ -148,6 +148,36 @@
     <var name="out.final.file" value="${out.absolute.dir}${file.separator}${ant.project.name}-${build.target}.apk" />
     <echo>New Output file  : ${out.final.file}</echo>
     
+    <!-- for DEBUG builds is possible defined custom sign key -->
+    <antcall target="-do-debug-sign"/>
+  </target>
+
+  <target name="-do-debug-sign" if="has.keystore" unless="build.is.mode.release">
+    <echo>Custom debug key is used for signing the APK</echo>
+    <!-- only create apk if *not* a library project -->
+    <do-only-if-not-library elseText="Library project: do not create apk..." >
+        <sequential>
+            <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}-release-unaligned.apk" />
+
+            <!-- Signs the APK -->
+            <echo level="info">Signing final DEBUG apk...</echo>
+            <signapk
+                    input="${out.packaged.file}"
+                    output="${out.unaligned.file}"
+                    keystore="${key.store}"
+                    storepass="${key.store.password}"
+                    alias="${key.alias}"
+                    keypass="${key.alias.password}"/>
+
+            <!-- Zip aligns the APK -->
+            <zipalign-helper
+                    in.package="${out.unaligned.file}"
+                    out.package="${out.final.file}" />
+            <echo level="info">Release Package: ${out.final.file}</echo>
+        </sequential>
+    </do-only-if-not-library>
+
+    <record-build-info />
   </target>
   
   <!--
