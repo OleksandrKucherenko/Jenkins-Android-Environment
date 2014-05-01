@@ -23,7 +23,9 @@
   <fail message="tools.dir is missing." unless="tools.dir" />  
   
   <!-- Tool properties -->
-  <property name="antcontrib.home" value="${tools.dir}/ant-contrib-1.0b3"/>
+  <property name="antcontrib.version" value="1.0b3" />
+  <property name="antcontrib.home" value="${tools.dir}/ant-contrib-${antcontrib.version}"/>
+  <property name="antcontrib.dir" location="${antcontrib.home}" />
   
   <!-- SEARCH PATHs -->
   <path id="android.antlibs">
@@ -37,6 +39,7 @@
   </path>
 
   <!-- Custom TASKS -->
+  <!-- taskdef name="if" classname="com.android.ant.IfElseTask" classpathref="android.antlibs" / -->
   <taskdef name="xpath" classname="com.android.ant.XPathTask" classpathref="android.antlibs" />
   <taskdef name="propertyregex" classname="net.sf.antcontrib.property.RegexTask" classpathref="apache.antlibs"/>
   <taskdef name="var" classname="net.sf.antcontrib.property.Variable" classpathref="apache.antlibs" />
@@ -46,6 +49,11 @@
   <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName" output="manifest.versionName" />
   <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionCode" output="manifest.versionCode" />
 
+  <!-- base on params define version code for manifest file -->
+  <condition property="version.code" value="${build.number}" else="${manifest.versionCode}">
+    <isset property="force.use.build.number" />
+  </condition>
+
   <!-- 
   ================================= 
     target: -validate-manifest-version              
@@ -53,6 +61,10 @@
   -->
 
   <target name="-validate-manifest-version">
+    <!-- Preview the originally set in manifest values -->
+    <echo>Manifest versionName: ${manifest.versionName}</echo>
+    <echo>Manifest versionCode: ${manifest.versionCode}</echo>
+
     <!-- validate format of the manifest versionName attribute -->
     <propertyregex property="manifest.version.valid"
                    input="${manifest.versionName}"
@@ -79,6 +91,7 @@
     <echo>Version Name: ${version.name}</echo>
     <echo>Version Code: ${version.code}</echo>
     
+    <!-- Trim version name, leave only first two section of it, ignore all other parts -->
     <propertyregex property="manifest.versionName"
                    input="${manifest.versionName}"
                    regexp="([0-9]+\.[0-9]+).*"
@@ -87,18 +100,6 @@
                    casesensitive="false" />
 
     <var name="version.name" value="${manifest.versionName}" />
-
-    <if>
-      <condition>
-        <istrue property="force.use.build.number"/>
-      </condition>
-      <then>
-        <var name="version.code" value="${build.number}" />
-      </then>
-      <else>
-        <var name="version.code" value="${manifest.versionCode}" />
-      </else>
-    </if>
 
     <replaceregexp file="AndroidManifest.xml" 
                    match='android:versionCode=\"(.*)\"' 
@@ -123,7 +124,7 @@
 
   <target name="set-project-name" depends="-set-manifest-version">
     <var name="ant.project.name"
-         value="${manifest.project.name}-${manifest.versionName}.${build.number}.${vcs.revision}" />
+         value="${manifest.project.name}-${manifest.versionName}.${version.code}.${vcs.revision}" />
     <var name="resource.package.file.name" value="${ant.project.name}.ap_" />
 
     <echo>Project Name: ${ant.project.name}</echo>

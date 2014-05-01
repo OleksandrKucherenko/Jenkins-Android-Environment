@@ -4,24 +4,25 @@
   <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
 
   <target name="help">
-  <echo>Available Targets:</echo>
-  <echo>  crashlytics-pre-build:</echo>
-  <echo>    Crashlytics target to be invoked prior to building any Android artifacts. </echo>
-  <echo>    Cleans up stale Crashlytics resource files and attempts to upload any cached deobfuscation files.</echo>
-  <echo>  crashlytics-code-gen:</echo>
-  <echo>    Crashlytics target to be invoked prior to compiling Android artifacts. Generates </echo>
-  <echo>    -required resources</echo>
-  <echo>  crashlytics-post-package:</echo>
-  <echo>    Crashlytics target to be invoked after the packaging task is complete. Cleans up Crashlytics-generated</echo>
-  <echo>    resource files. Caches and uploads deobfuscation files to Crashlytics servers.</echo>
-  <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
+    <echo>Available Targets:</echo>
+    <echo>  crashlytics-pre-build:</echo>
+    <echo>    Crashlytics target to be invoked prior to building any Android artifacts. </echo>
+    <echo>    Cleans up stale Crashlytics resource files and attempts to upload any cached deobfuscation files.</echo>
+    <echo>  crashlytics-code-gen:</echo>
+    <echo>    Crashlytics target to be invoked prior to compiling Android artifacts. Generates </echo>
+    <echo>    -required resources</echo>
+    <echo>  crashlytics-post-package:</echo>
+    <echo>    Crashlytics target to be invoked after the packaging task is complete. Cleans up Crashlytics-generated</echo>
+    <echo>    resource files. Caches and uploads deobfuscation files to Crashlytics servers.</echo>
+    <echo>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</echo>
   </target>
 
   <!-- quick check on sdk.dir & tools.dir -->
   <fail message="sdk.dir is missing." unless="sdk.dir" />
   <fail message="tools.dir is missing." unless="tools.dir" />
 
-  <property name="crashlytics.home" value="${tools.dir}/crashlytics-1.1.1"/>
+  <property name="crashlytics.version" value="1.1.1" />
+  <property name="crashlytics.home" value="${tools.dir}/crashlytics-${crashlytics.version}"/>
 
   <import file="${crashlytics.home}/crashlytics_build_base.xml"/>
 
