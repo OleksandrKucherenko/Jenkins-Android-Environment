@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+
+  <!-- quick check on sdk.dir & tools.dir -->
+  <fail message="sdk.dir is missing." unless="sdk.dir" />
+  <fail message="tools.dir is missing." unless="tools.dir" />
+
+  <!-- Load tools configuration -->
+  <property file="${tools.dir}/tools.properties" />
+
   <!-- 
   ================================= 
     Short overview of build steps 
