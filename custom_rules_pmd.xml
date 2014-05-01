@@ -19,7 +19,9 @@
   <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
-  <property name="pmd.home" value="${tools.dir}/pmd-bin-5.0.5" /> 
+  <property name="pmd.version" value="5.1.1" />
+  <property name="pmd.home" value="${tools.dir}/pmd-${pmd.version}" /> 
+  <property name="pmd.dir" location="${pmd.home}" />
   <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
 
   <!-- Recursive paths -->     

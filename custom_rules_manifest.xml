@@ -44,6 +44,7 @@
   <!-- Initial values extraction from manifest file -->
   <xpath input="AndroidManifest.xml" expression="/manifest/@package" output="manifest.project.name" />
   <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName" output="manifest.versionName" />
+  <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionCode" output="manifest.versionCode" />
 
   <!-- 
   ================================= 
@@ -86,7 +87,18 @@
                    casesensitive="false" />
 
     <var name="version.name" value="${manifest.versionName}" />
-    <var name="version.code" value="${build.number}" />
+
+    <if>
+      <condition>
+        <istrue property="force.use.build.number"/>
+      </condition>
+      <then>
+        <var name="version.code" value="${build.number}" />
+      </then>
+      <else>
+        <var name="version.code" value="${manifest.versionCode}" />
+      </else>
+    </if>
 
     <replaceregexp file="AndroidManifest.xml" 
                    match='android:versionCode=\"(.*)\"' 

@@ -23,7 +23,9 @@
   <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
-  <property name="jcsc.home" value="${tools.dir}/jcsc-0.98.1"/>
+  <property name="jcsc.version" value="0.98.1" />
+  <property name="jcsc.home" value="${tools.dir}/jcsc-${jcsc.version}"/>
+  <property name="jcsc.dir" location="${jcsc.home}"/>
   
   <!-- Recursive paths -->     
   <path id="tools.jcsc.classpath">         

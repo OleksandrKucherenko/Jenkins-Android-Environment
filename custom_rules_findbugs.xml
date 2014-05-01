@@ -18,7 +18,9 @@
   <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
-  <property name="findbugs.home" value="${tools.dir}/findbugs-2.0.3" />
+  <property name="findbugs.version" value="2.0.3" />
+  <property name="findbugs.home" value="${tools.dir}/findbugs-${findbugs.version}" />
+  <property name="findbugs.dir" location="${findbugs.home}" />
   
   <path id="tools.findbugs.antlibs">
     <pathelement path="${findbugs.home}/lib/findbugs-ant.jar" />

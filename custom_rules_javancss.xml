@@ -23,7 +23,9 @@
   <property name="reports.dir" value="${user.dir}/reports" />
   <property name="reports.absolute.dir" location="${reports.dir}" />
   
-  <property name="javancss.home" value="${tools.dir}/javancss-32.53" />
+  <property name="javancss.version" value="32.53"/>
+  <property name="javancss.home" value="${tools.dir}/javancss-${javancss.version}" />
+  <property name="javancss.dir" location="${javancss.home}" />
 
   <path id="tools.javancss.classpath">         
     <fileset dir="${javancss.home}">             
